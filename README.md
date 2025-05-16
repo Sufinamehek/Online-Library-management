@@ -63,23 +63,6 @@ http://localhost:5000
 
 
 
----
-
-### 🔹 Step 2: Upload Your Project to GitHub
-
-#### ✅ Create a GitHub Repository:
-
-1. Go to [GitHub](https://github.com).
-2. Login and click the **+** icon > **New repository**.
-3. Name it (e.g., `Online-Library-management`) and click **Create repository**.
-
----
-
-#### ✅ Upload Code via Command Line
-
-1. Open terminal or CMD in your project folder:
-```bash
-cd path/to/Online-Library-management
 
 
 🧑‍💻 Author
