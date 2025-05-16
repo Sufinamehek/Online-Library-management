@@ -1,0 +1,25 @@
+<div class="container" id="main-container">
+    {% block content %}
+    <h1 class="dashboard-heading">📖 Welcome to Student Dashboard, {{ session['username'] }}!</h1>
+
+    <div class="card-container">
+        <div class="card">
+            <h3>📘 Available Books</h3>
+            <p>Explore all books available to borrow from the library.</p>
+            <a href="{{ url_for('student_available_books') }}">View</a>
+        </div>
+
+        <div class="card">
+            <h3>📚 Borrowed Books</h3>
+            <p>Check your currently borrowed books and due dates.</p>
+            <a href="{{ url_for('borrowed_books') }}">View</a>
+        </div>
+
+        <div class="card">
+            <h3>💻 E-Books</h3>
+            <p>Read free online PDFs categorized by subjects.</p>
+            <a href="{{ url_for('student_ebooks') }}">Explore</a>
+        </div>
+    </div>
+    {% endblock %}
+</div>

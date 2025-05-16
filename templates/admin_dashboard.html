@@ -1,0 +1,49 @@
+<!-- dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Welcome, {{ user }}</h1>
+    <p><strong>Your Role:</strong> {{ role.capitalize() }}</p>
+    
+    {% if role == 'admin' %}
+    <h1>Welcome, Admin!</h1>
+    <p>You have full access to the system.</p>
+ {% else %}
+    <p>Unauthorized access. Please log in as an admin.</p>
+ {% endif %}
+ 
+
+    <nav>
+        <ul>
+            {% if role == 'admin' %}
+                <li><a href="/admin_portal">Admin Portal</a></li>
+                <li><a href="/manage_fines">Manage Fines</a></li>
+
+                <!-- Display total students -->
+                <li><strong>Total Registered Students:</strong> {{ total_students }}</li>
+
+                <!-- Display student names -->
+                {% if students %}
+                    <ul>
+                        {% for student in students %}
+                            <li>{{ student.username }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No students have registered yet.</p>
+                {% endif %}
+            {% else %}
+                <li><a href="/student_portal">Student Portal</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <a href="/logout" class="logout-btn">Logout</a>
+</body>
+</html>

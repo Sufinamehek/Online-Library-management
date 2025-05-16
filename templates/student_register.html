@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Student Registration</h2>
+
+        {% if message %}
+            <p>{{ message }}</p>
+        {% endif %}
+
+        <form action="{{ url_for('student_register') }}" method="POST">
+            <input type="text" id="username" name="username" placeholder="Enter Username" required>
+
+            <!-- ✅ Password Field with Checkbox -->
+            <div class="password-container">
+                <input type="password" id="password" name="password" placeholder="Enter Password" required>
+                
+                <label style="margin-top: 10px; display: flex; align-items: center;">
+                    <input type="checkbox" onclick="togglePassword()" style="margin-right: 5px;"> Show password
+                </label>
+            </div>
+
+            <input type="text" name="course_name" placeholder="Name of the course" required>
+            <input type="text" name="college_year" placeholder="Year of the course" required>
+            <input type="email" id="gmail" name="gmail" placeholder="Enter Gmail" required>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <div class="register-link">
+            <p>Already have an account? <a href="{{ url_for('student_login') }}">Login here</a></p>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword() {
+            var passwordField = document.getElementById("password");
+            passwordField.type = passwordField.type === "password" ? "text" : "password";
+        }
+    </script>
+</body>
+</html>

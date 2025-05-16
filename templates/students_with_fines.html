@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Students with Pending Fines</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin_p.css') }}">
+</head>
+<body>
+
+    <!-- ✅ Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <h2>📚 Books</h2>
+        <a href="{{ url_for('add_book') }}">Add Book</a>
+        <a href="{{ url_for('available_books') }}">Available Books</a>
+
+        <h2>👩‍🎓 Students</h2>
+        <a href="{{ url_for('registered_students') }}">Registered Students</a>
+        <a href="{{ url_for('logged_in_students') }}">Logged-in Students</a>
+        <a href="{{ url_for('students_with_fines') }}">Students with Fines</a>
+
+        <h2>📩 Requests</h2>
+        <a href="{{ url_for('pending_requests') }}">Pending Book Requests</a>
+        <a href="{{ url_for('issued_books') }}">Issued Books</a>
+
+        <a href="{{ url_for('admin_dashboard') }}">Go to Dashboard</a>
+    </div>
+
+    <!-- ✅ Toggle Button for Sidebar -->
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+    <!-- ✅ Main Content -->
+    <div class="container">
+        <h2>Students with Pending Fines</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Username</th>
+                    <th>Fine Amount</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students_with_fines %}
+                <tr>
+                    <td>{{ student.username }}</td>
+                    <td>${{ student.fine }}</td>
+                    <td>
+                        <form action="{{ url_for('mark_fine_paid', student_id=student.id) }}" method="POST">
+                            <button type="submit">Mark as Paid</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("active");
+        }
+    </script>
+
+</body>
+</html>

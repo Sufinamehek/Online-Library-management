@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Free E-Books</title>
+    <style>
+        body { font-family: Arial; padding: 30px; }
+        .search-bar {
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .ebook-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 2px 2px 10px #ccc;
+        }
+        .read-btn {
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+        .read-btn:hover { background: #2c80b4; }
+    </style>
+    <script>
+        function searchBooks() {
+            const input = document.getElementById("searchInput").value.toLowerCase();
+            const cards = document.getElementsByClassName("ebook-card");
+            for (let card of cards) {
+                const title = card.querySelector("h3").innerText.toLowerCase();
+                card.style.display = title.includes(input) ? "block" : "none";
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <div style="margin-bottom: 20px;">
+        <a href="{{ url_for('admin_portal') }}" style="text-decoration: none; font-weight: bold;">
+            ⬅️ Back to Admin Portal
+        </a>
+    </div>
+
+    <h1>📚 Free E-Books for Students</h1>
+    <p>Click "Read Now" to open the book in your browser.</p>
+
+    <div class="search-bar">
+        <input type="text" id="searchInput" onkeyup="searchBooks()" placeholder="Search books...">
+    </div>
+
+    {% for book in ebooks %}
+        <div class="ebook-card">
+            <h3>{{ book.title }}</h3>
+            <p><strong>Category:</strong> {{ book.type }}</p>
+            <a href="{{ book.url }}" target="_blank" class="read-btn">📖 Read Now</a>
+        </div>
+    {% endfor %}
+
+</body>
+</html>

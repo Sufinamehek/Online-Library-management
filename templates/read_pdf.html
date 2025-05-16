@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Read Book</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .top-bar {
+            background-color: #f8f9fa;
+            padding: 10px;
+            text-align: left;
+        }
+        .top-bar a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        iframe {
+            width: 100%;
+            height: 90vh;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a href="{{ url_for('ebooks') }}">🔙 Back to E-Books</a>
+    </div>
+
+    <iframe src="{{ url_for('static', filename=filename) }}"></iframe>
+</body>
+</html>

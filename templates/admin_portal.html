@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin_p.css') }}">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <!-- ✅ Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <h2>📚 Books</h2>
+        <a href="{{ url_for('add_book') }}">Add Book</a>
+        <a href="{{ url_for('available_books') }}">Available Books</a>
+
+        <h2>📖 E-Books</h2>
+        <a href="{{ url_for('ebooks') }}">Free Online E-Books</a>
+
+
+        <h2>👩‍🎓 Students</h2>
+        <a href="{{ url_for('registered_students') }}">Registered Students</a>
+        <a href="{{ url_for('logged_in_students') }}">Logged-in Students</a>
+
+        <h2>📩 Requests</h2>
+        <a href="{{ url_for('pending_borrow_requests') }}">Pending Book Requests</a>
+
+        <a href="{{ url_for('issued_books') }}">Issued Books</a>
+        <a href="{{ url_for('admin_returned_books') }}">Returned Books</a></li>
+
+        <a href="{{ url_for('index') }}">Go to Dashboard</a>
+       
+
+    </div>
+
+    <!-- ✅ Toggle Button for Sidebar -->
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+    <!-- ✅ Admin Dashboard Content -->
+    <div class="container">
+        <h1 class="dashboard-heading">Welcome to Admin Portal</h1>
+        <p>Use the sidebar to navigate different sections.</p>
+    </div>
+
+    <!-- ✅ JavaScript for Sidebar Toggle -->
+    <script>
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("active");
+        }
+    </script>
+
+</body>
+</html>

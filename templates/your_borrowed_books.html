@@ -1,0 +1,53 @@
+{% extends "student_dashboard.html" %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='student.css') }}">
+
+<div class="content-wrapper">
+  <h1>Your Borrowed Books</h1>
+
+  {% if borrowed_books %}
+    <table border="1" id="borrowedTable">
+      <thead>
+        <tr>
+          <th>Book ID</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Borrow Date</th>
+          <th>Due Date</th>
+          <th>Status</th>
+          <th>Fine (₹)</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for book in borrowed_books %}
+        <tr>
+          <td>{{ book.book_id }}</td>
+          <td>{{ book.title }}</td>
+          <td>{{ book.author }}</td>
+          <td>{{ book.borrow_date }}</td>
+          <td>{{ book.due_date }}</td>
+          <td>{{ book.status }}</td>
+          <td>{{ book.fine }}</td>
+          <td>
+            {% if book.status == 'Not Returned' %}
+            <form method="POST" action="/return_book">
+              <input type="hidden" name="borrow_id" value="{{ book.borrow_id }}">
+              <button type="submit">Return</button>
+          </form>
+          
+            {% else %}
+              Returned
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>You haven't borrowed any books yet.</p>
+  {% endif %}
+
+  <a href="{{ url_for('student_portal') }}" class="btn btn-back">← Back to Student Portal</a>
+</div>
+{% endblock %}

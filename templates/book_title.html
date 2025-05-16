@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borrow a Book</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Borrow a Book</h1>
+
+        <!-- Available Books -->
+        <form action="{{ url_for('borrow_book') }}" method="POST">
+            <label for="book_title">Choose a book to borrow:</label>
+            <select name="book_title" id="book_title" required>
+                <option value="" disabled selected>Select a book</option>
+                {% if books %}
+                    {% for title, author in books.items() %}
+                        <option value="{{ title }}">{{ title }} by {{ author }}</option>
+                    {% endfor %}
+                {% else %}
+                    <option value="" disabled>No books available</option>
+                {% endif %}
+            </select>
+            <button type="submit">Borrow Book</button>
+        </form>
+
+        <hr>
+
+        <!-- Returning Books -->
+        <h2>Return a Book</h2>
+        <form action="{{ url_for('return_book') }}" method="POST">
+            <label for="return_book">Select a book to return:</label>
+            <select name="book_title" id="return_book" required>
+                <option value="" disabled selected>Select a book</option>
+                {% if borrowed_books %}
+                    {% for book in borrowed_books %}
+                        <option value="{{ book[0] }}">{{ book[0] }} (Borrowed on {{ book[1].strftime('%Y-%m-%d') }})</option>
+                    {% endfor %}
+                {% else %}
+                    <option value="" disabled>No borrowed books</option>
+                {% endif %}
+            </select>
+            <button type="submit">Return Book</button>
+        </form>
+
+        <hr>
+
+        <!-- Fine Information -->
+        <h2>Your Total Fine: Rs. {{ fine if fine else '0' }}</h2>
+
+        <a href="/dashboard">Back to Dashboard</a>
+    </div>
+</body>
+</html>

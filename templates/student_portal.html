@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='student.css') }}">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <button class="menu-btn" onclick="toggleSidebar()">&#9776;</button>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <h2><img src="{{ url_for('static', filename='logo.png') }}" style="height: 30px;"> Library Menu</h2>
+
+    <div class="menu-section">
+        <h3>📚 Books</h3>
+        <a href="{{ url_for('student_available_books') }}">Available Books</a>
+    </div>
+
+    <div class="menu-section">
+        <h3>📘 E-Books</h3>
+        <a href="{{ url_for('student_ebooks') }}">E-Books</a>
+    </div>
+
+    <div class="menu-section">
+        <h3>📖 Your Books</h3>
+        <a href="{{ url_for('your_borrowed_books') }}">Your Borrowed Books</a>
+    </div>
+
+    <div class="menu-section">
+        <a href="{{ url_for('admin_dashboard') }}">🚪 Go To Dashboard</a>
+    </div>
+</div>
+
+
+    <!-- ✅ Main Content -->
+    <div class="container" id="main-container">
+        <center><h1>📖 Welcome {{ student_name }}!</h1>
+        <p>Select a section from the sidebar to continue.</p></center>
+    </div>
+
+    <!-- ✅ JS for Toggle -->
+    <script>
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("active");
+        }
+    </script>
+
+
+</body>
+</html>

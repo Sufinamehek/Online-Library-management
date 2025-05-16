@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+
+    <script src="{{ url_for('static', filename='admin.js') }}"></script>
+    
+
+</head>
+<body>
+    <div class="login-container">
+        <h2>Admin Login</h2>
+        <form action="{{ url_for('admin_login') }}" method="POST">
+            <input type="text" name="username" placeholder="Enter Admin Username" required>
+            <input type="email" name="email" placeholder="Enter Email" required>
+            <!-- ✅ Password Field with Eye Icon -->
+
+            <div class="password-container">
+                <input type="password" id="password" name="password" placeholder="Enter Password" required>
+                
+                <label style="margin-top: 10px; display: flex; align-items: center;">
+                    <input type="checkbox" onclick="togglePassword()" style="margin-right: 5px;"> Show password
+                </label>
+            </div>
+            
+<!-- ✅ Validation Message -->
+<p id="password-error" class="error-message"></p>
+
+            
+            <button type="submit">Login</button>
+        </form>
+
+        <div class="register-link">
+            <p>Already have an account? <a href="{{ url_for('admin_register') }}">Register here</a></p>
+            <a href="{{ url_for('admin_forgot_password') }}">Forgot Password?</a>
+
+            
+        </div>
+    </div>
+
+    <script>
+        function togglePassword() {
+            var passwordField = document.getElementById("password");
+            passwordField.type = (passwordField.type === "password") ? "text" : "password";
+        }
+    </script>
+</body>
+</html>

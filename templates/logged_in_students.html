@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Logged-in Students</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='add_books.css') }}">
+</head>
+<body>
+    <h1>Currently Logged-in Students</h1>
+    <ul>
+        {% for student in logged_in_students %}
+            <li>{{ student.username }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('admin_portal') }}">Back to Admin Portal</a>
+</body>
+</html>

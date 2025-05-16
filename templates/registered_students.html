@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registered Students</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='student.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>📚 Registered Students</h2>
+
+        <input type="text" id="searchInput" placeholder="Search by ID or Name..." onkeyup="filterTable()">
+
+        <table id="studentsTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Borrowed Books</th>
+                    <th>Pending Fine</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if registered_students %}
+                    {% for student in registered_students %}
+                    <tr>
+                        <td>{{ student.id }}</td>
+                        <td>{{ student.username }}</td>
+                        <td>{{ student.borrowed_books }}</td>
+                        <td>${{ student.fine }}</td>
+                        <td>
+                            {% if student.fine > 0 %}
+                                <form action="{{ url_for('mark_fine_paid', student_id=student.id) }}" method="POST" style="display:inline-block;">
+                                    <button type="submit" class="paid-btn">Mark as Paid</button>
+                                </form>
+                            {% else %}
+                                No Fine
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr><td colspan="5">No registered students found.</td></tr>
+                {% endif %}
+            </tbody>
+        </table>
+
+        <a href="{{ url_for('admin_portal') }}" class="back-link">← Back to Admin Dashboard</a>
+    </div>
+
+    <script>
+        function filterTable() {
+            const input = document.getElementById("searchInput").value.toLowerCase();
+            const rows = document.querySelectorAll("#studentsTable tbody tr");
+
+            rows.forEach(row => {
+                const id = row.cells[0].textContent.toLowerCase();
+                const username = row.cells[1].textContent.toLowerCase();
+                row.style.display = id.includes(input) || username.includes(input) ? "" : "none";
+            });
+        }
+    </script>
+</body>
+</html>

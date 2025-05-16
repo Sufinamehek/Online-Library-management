@@ -1,0 +1,15 @@
+<!-- books.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books Dictionary</title>
+</head>
+<body>
+    <h1>Books and Authors</h1>
+    {% for book, author in books_dict.items() %}
+        <p>{{ book }} by {{ author }}</p>
+    {% endfor %}
+</body>
+</html>

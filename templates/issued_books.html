@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Issued Books</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='add_books.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h2.section-title {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .flash {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+
+        .flash.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .flash.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        form {
+            display: inline-block;
+        }
+
+        button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        button[style*="red"] {
+            background-color: red !important;
+        }
+
+        .no-requests {
+            font-style: italic;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <h2 class="section-title">Issued Books</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    {% if issued_books %}
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Student Username</th>
+            <th>Book Title</th>
+            <th>Issue Date</th>
+            <th>Due Date</th>
+        </tr>
+        {% for book in issued_books %}
+        <tr>
+            <td>{{ book.borrow_id }}</td>
+            <td>{{ book.student }}</td>
+            <td>{{ book.title }}</td>
+            <td>{{ book.borrowed_date }}</td>
+            <td>{{ book.return_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p class="no-requests">No books have been issued.</p>
+    {% endif %}
+
+    <a href="{{ url_for('admin_portal') }}" style="text-decoration: none; font-weight: bold;">
+        ⬅️ Back to Admin Portal
+    </a>
+    
+</body>
+</html>

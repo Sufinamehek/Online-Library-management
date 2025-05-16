@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Registration</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+    <script defer src="{{ url_for('static', filename='admin.js') }}"></script>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Admin Registration</h2>
+        <form action="{{ url_for('admin_register') }}" method="POST">
+            <input type="text" name="name" placeholder="Enter Name" required>
+            <input type="email" name="email" placeholder="Enter Email" required>
+
+            <div class="password-container">
+                <input type="password" id="password" name="password" placeholder="Enter Password" required>
+                <label><input type="checkbox" onclick="togglePassword()"> Show password</label>
+            </div>
+
+            <p id="password-error" class="error-message"></p>
+            <button type="submit">Register</button>
+        </form>
+
+        <p>Already have an account? <a href="{{ url_for('admin_login') }}">Login here</a></p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+
+    <!-- ✅ Navigation Bar -->
+    <div class="navbar">
+        <!-- Left Side: E-Library Management -->
+        <div class="nav-left">
+            <h1>E-Library Management</h1>
+        </div>
+
+        <!-- Center: About Us & Contact Us -->
+        
+
+        <!-- Right Side: Login Dropdown -->
+        <div class="nav-right">
+            <div class="dropdown">
+                <button class="dropbtn">Login</button>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('admin_login') }}">Admin</a>
+                    <a href="{{ url_for('student_login') }}">Student</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✅ Background Image -->
+    <div class="hero-section"></div>
+
+    <!-- ✅ Admin & Student Section -->
+    <div class="user-section">
+        <div class="user">
+            <img src="{{ url_for('static', filename='admin.png') }}" alt="Admin">
+            <a href="/admin_login"><button class="btn">Admin</button></a>
+        </div>
+        <div class="user">
+            <img src="{{ url_for('static', filename='student.jpg') }}" alt="Student">
+            <a href="/student_login"><button class="btn">Student</button></a>
+        </div>
+    </div>
+
+    <!-- ✅ Footer -->
+    <footer>
+        <h2>&copy; Shaikh Sufinamehek</h2>
+    </footer>
+
+</body>
+</html>

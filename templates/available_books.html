@@ -1,0 +1,41 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='add_books.css') }}">
+
+<h1>Available Books</h1>
+
+<!-- 🔍 Search Form -->
+<form method="GET" action="{{ url_for('available_books') }}">
+    <input type="text" name="query" placeholder="Search by title or author" value="{{ request.args.get('query', '') }}">
+    <button type="submit">Search</button>
+</form>
+
+{% if books %}
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Author</th>
+            {% if role == 'admin' %}
+            <th>Action</th>
+            {% endif %}
+        </tr>
+        {% for book in books %}
+        <tr>
+            <td>{{ book.id }}</td>
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            {% if role == 'admin' %}
+            <td>
+                <form method="POST" action="{{ url_for('delete_book', book_id=book.id) }}">
+                    <button type="submit" class="btn btn-delete">Delete</button>
+                </form>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>No books available.</p>
+{% endif %}
+
+<!-- 🔙 Back Button -->
+<a href="{{ url_for('admin_portal') }}" class="btn btn-back">← Back to Admin Portal</a>

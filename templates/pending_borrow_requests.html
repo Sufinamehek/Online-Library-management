@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pending Borrow Requests</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='add_books.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h2.section-title {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .flash {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+
+        .flash.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .flash.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        form {
+            display: inline-block;
+        }
+
+        button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        button[style*="red"] {
+            background-color: red !important;
+        }
+
+        .no-requests {
+            font-style: italic;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <h2 class="section-title">Pending Borrow Requests</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% if pending %}
+    <table>
+        <tr>
+            <th>Request ID</th>
+            <th>Student ID</th>
+            <th>Username</th>
+            <th>Book Title</th>
+            <th>Author</th>
+            <th>Actions</th>
+        </tr>
+        {% for req in pending %}
+        <tr>
+            <td>{{ req['id'] }}</td>
+            <td>{{ req['student_id'] }}</td>
+            <td>{{ req['student_username'] }}</td>
+            <td>{{ req['book_title'] }}</td>
+            <td>{{ req['book_author'] or 'N/A' }}</td>
+            <td>
+                <form method="POST" action="/admin/approve_request">
+                    <input type="hidden" name="request_id" value="{{ req['id'] }}">
+                    <button type="submit">Approve</button>
+                </form>
+
+                <form method="POST" action="/admin/reject_request">
+                    <input type="hidden" name="request_id" value="{{ req['id'] }}">
+                    <button type="submit" style="background-color:red; color:white;">Reject</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p class="no-requests">No pending requests.</p>
+    {% endif %}
+
+    <a href="{{ url_for('admin_portal') }}" class="btn btn-back" style="Back to admin Portal">
+      ← Back to Admin Portal</a>
+</body>
+</html>
